@@ -2,16 +2,11 @@
   "name": "project-alpaca",
   "version": "0.0.1",
   "description": "Praktische Opdracht software engineering voor het vak informatica. Door Obe Attema, in samenwerking met Leon Zondervan.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/guillamos/Project-Alpaca.git"
   },
-  "author": "Obe Attema; Leon Zondervan",
-  "license": "ISC",
+  "author": "Obe Attema en Leon Zondervan",
   "bugs": {
     "url": "https://github.com/guillamos/Project-Alpaca/issues"
   },
