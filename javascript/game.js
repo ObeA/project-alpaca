@@ -1,4 +1,4 @@
-var game = new Phaser.Game(1020, 780, Phaser.AUTO, 'main-canvas', {
+var game = new Phaser.Game(1020, 780, Phaser.AUTO, 'game-container', {
     preload: preload,
     create: create,
     update: update,
@@ -21,22 +21,15 @@ function preload() {
 function create() {
     console.log("Created");
 
-    // Maak alle klasses aan
-    entities.push(new Alpaca());
+    var backgroundGroup = game.add.group();
+    backgroundGroup.add('background');
+    backgroundGroup.add('grass');
 }
 
 function update() {
-    console.log("Update");
 
-    for (var entity in entities) {
-        entity.update();
-    }
 }
 
 function render () {
-    console.log("Render");
 
-    for (var entity in entities) {
-        entity.render();
-    }
 }
