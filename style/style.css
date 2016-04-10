@@ -1,0 +1,28 @@
+html {
+    background: url('/images/bg.png');
+
+    font-family: 'Comic Sans MS', sans-serif;
+}
+body {
+    width: 1020px;
+    margin: 0 auto;
+
+    text-align: center;
+}
+
+header {
+
+}
+footer {
+    font-size: 11px;
+}
+
+section.content {
+    margin: 10px 0 10px;
+
+    background-color: #000;
+}
+section.content > canvas#main-canvas {
+    height: 780px;
+    width: 1020px;
+}
