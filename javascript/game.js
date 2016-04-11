@@ -50,10 +50,11 @@ function create() {
     var alpacaGroup = game.add.group();
     for (var i = 0; i < 10; i++)
     {
-        var rndX = game.rnd.integerInRange(76 + 50, 1020 - 76 - 50);
-        var rndY = game.rnd.integerInRange(78 + 50, 780 - 78 - 50);
+        var rndX = game.rnd.integerInRange(90 + 50, 1020 - 80 - 50);
+        var rndY = game.rnd.integerInRange(90 + 50, 780 - 80 - 50);
         var alpaca = alpacaGroup.create(rndX, rndY, 'alpaca');
         game.physics.p2.enable(alpaca, false);
+        console.log(alpaca.body);
     }
 }
 
