@@ -10,6 +10,11 @@ State.Loader = {
         loadingText.anchor.x = 0.5;
         this.load.setPreloadSprite(loadingAlpaca);
 
+        game.load.audio('menu-tune', Settings.Audio + '/menu.mp3');
+        game.load.audio('button-click', Settings.Audio + '/button.wav');
+        game.load.audio('ingame-1', Settings.Audio + '/game1.mp3');
+        game.load.audio('ingame-2', Settings.Audio + '/game2.mp3');
+
         game.load.image('background', Settings.Images + '/background.png');
         game.load.image('grass', Settings.Images + '/grass.png');
         game.load.image('farm', Settings.Images + '/boerderij.png');
@@ -21,11 +26,17 @@ State.Loader = {
 
         game.load.image('cloud-1', Settings.Images + '/clouds/cloud1.png');
         game.load.image('cloud-2', Settings.Images + '/clouds/cloud2.png');
-        game.load.image('cloud-3', Settings.Images + '/clouds/cloud1.png');
+        game.load.image('cloud-3', Settings.Images + '/clouds/cloud3.png');
+        game.load.image('cloud-4', Settings.Images + '/clouds/cloud4.png');
+        game.load.image('cloud-5', Settings.Images + '/clouds/cloud5.png');
+        game.load.image('cloud-6', Settings.Images + '/clouds/cloud6.png');
 
         game.load.spritesheet('button', Settings.Images + '/knop.png', 100, 50);
+        game.load.spritesheet('shears', Settings.Images + '/shears.png', 75, 75);
+        loadingText.text = "Zwoele muziekjes worden voorbereid...";
     },
-    create: function () {
-        game.state.start('menu');
+    update: function () {
+        if (this.cache.isSoundDecoded('menu-tune') && this.cache.isSoundDecoded('button-click'))
+            game.state.start('menu');
     }
 };

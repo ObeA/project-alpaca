@@ -4,6 +4,9 @@ var Alpaca = function (context, group) {
     this.idleTimer = 0;
     this.freezed = false;
     this.wool = 0;
+    this.happiness = 1;
+    this.satisfaction = 1;
+    this.name = Settings.Names.random(this.ctx);
 
     var rndX = this.ctx.game.rnd.integerInRange(75, 925);
     var rndY = this.ctx.game.rnd.integerInRange(100, 550);
@@ -20,15 +23,47 @@ var Alpaca = function (context, group) {
     this.growWool();
 };
 
-Alpaca.prototype.sheer = function (amount) {
+Alpaca.prototype.updateHappiness = function () {
+    var satisfactionFactor = 1;
+    if (this.satisfaction >= 0.75)
+        satisfactionFactor += 0.1;
+    else
+        satisfactionFactor = this.satisfaction;
+
+    this.happiness *= satisfactionFactor;
+    this.happiness = Math.round(this.happiness * 10) / 10;
+    if (this.happiness > 1)
+        this.happiness = 1;
+    else if (this.happiness < 0)
+        this.happiness = 0;
+};
+Alpaca.prototype.shear = function (amount) {
     if (amount === undefined || amount === 0)
         amount = this.wool;
     this.ctx.Wool.current += amount;
     this.wool -= amount;
+    this.satisfy();
+};
+Alpaca.prototype.satisfy = function () {
+    this.satisfaction += Math.max(Math.round(this.ctx.game.rnd.frac() * 100) / 100, 0.25); // TODO: random
+    if (this.satisfaction > 1)
+        this.satisfaction = 1;
+};
+Alpaca.prototype.dissatisfy = function () {
+    this.satisfaction -= Math.max(Math.round(this.ctx.game.rnd.frac() * 100) / 100, 0.1); // TODO: random
+    if (this.satisfaction < 0)
+        this.satisfaction = 0;
 };
 Alpaca.prototype.growWool = function () {
-    this.wool += this.ctx.game.rnd.integerInRange(1, 5);
-    this.ctx.game.time.events.add(this.ctx.game.rnd.integerInRange(10000, 30000), this.growWool, this);
+
+    if (this.wool < 20)
+        this.wool += this.ctx.game.rnd.integerInRange(1, 5);
+    if (this.wool >= 10)
+        this.dissatisfy();
+
+    this.updateHappiness();
+    var growthSpeedFactor = this.satisfaction > 0.75 ? this.satisfaction : 1 + (1 - this.satisfaction);
+    this.ctx.game.time.events.add(Math.floor(this.ctx.game.rnd.integerInRange(10000, 30000) * growthSpeedFactor), this.growWool, this);
 };
 Alpaca.prototype.moveRandomly = function () {
     var r = game.rnd.integerInRange(0, 100);
